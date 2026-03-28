@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sense and Sensibility Quotes</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: transparent;
+            font-family: 'Georgia', serif;
+            overflow: hidden;
+        }
+        #quote-container {
+            max-width: 80%;
+            padding: 20px;
+            text-align: center;
+            border-left: 3px solid #5a3e2b;
+        }
+        #quote-text {
+            font-size: 1.25rem;
+            line-height: 1.5;
+            color: #37352f; /* Standard Notion text color */
+            font-style: italic;
+            transition: opacity 0.8s ease-in-out;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div id="quote-container">
+    <p id="quote-text"></p>
+</div>
+
+<script>
+    const quotes = [
+        "I wish, as well as every body else, to be perfectly happy; but, like every body else, it must be in my own way.",
+        "Know your own happiness. Want for nothing but patience—or give it a more fascinating name: Call it hope.",
+        "Money can only give happiness where there is nothing else to give it.",
+        "The more I know of the world, the more am I convinced that I shall never see a man whom I can really love. I require so much!",
+        "It is not time or opportunity that is to determine intimacy;—it is disposition alone.",
+        "I will be mistress of myself.",
+        "If I could but know his heart, everything would become easy.",
+        "Shyness is only the effect of a sense of inferiority in some way or other.",
+        "Elinor agreed to it all, for she did not think he deserved the compliment of rational opposition.",
+        "To wish was to hope, and to hope was to expect."
+    ];
+
+    let currentIndex = 0;
+    const quoteElement = document.getElementById('quote-text');
+
+    function updateQuote() {
+        quoteElement.style.opacity = 0;
+        
+        setTimeout(() => {
+            quoteElement.innerText = quotes[currentIndex];
+            quoteElement.style.opacity = 1;
+            currentIndex = (currentIndex + 1) % quotes.length;
+        }, 800);
+    }
+
+    updateQuote();
+    setInterval(updateQuote, 120000); // 2 minutes
+</script>
+
+</body>
+</html>
