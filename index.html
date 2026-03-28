@@ -3,38 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sense and Sensibility Quotes</title>
+    <title>Sense and Sensibility Quotes - Monica's Pie</title>
     <style>
+        /* Modern CSS variables for automatic theme adaption (Light/Dark Mode) */
+        :root {
+            --text-color: #37352f;      /* Notion Light Mode text */
+            --source-color: #7a7a7a;    /* Faded text for the source */
+            --accent-color: #5a3e2b;    /* The decorative border color */
+        }
+
+        /* Dark Mode styles, automatically detected */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-color: #ebebeb;   /* Notion Dark Mode text */
+                --source-color: #a0a0a0; /* Faded dark text for the source */
+                --accent-color: #d1b8a1; /* Lighter border for contrast */
+            }
+        }
+
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: transparent;
-            font-family: 'Georgia', serif;
-            overflow: hidden;
+            background-color: transparent; /* Seamless integration with Notion */
+            font-family: 'Georgia', 'serif'; /* Classy book-style font */
+            overflow: hidden; /* Prevent ugly scrollbars in the Notion embed */
         }
+
         #quote-container {
-            max-width: 80%;
-            padding: 20px;
-            text-align: center;
-            border-left: 3px solid #5a3e2b;
+            max-width: 85%;
+            padding: 10px 20px 20px 20px;
+            text-align: left; /* Good for quotes */
+            border-left: 3px solid var(--accent-color); /* Decorative line */
         }
+
         #quote-text {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             line-height: 1.5;
-            color: #37352f; /* Standard Notion text color */
+            color: var(--text-color);
             font-style: italic;
+            margin-bottom: 8px; /* Space between quote and source */
+        }
+
+        /* Style for the added source line */
+        #quote-source {
+            font-size: 0.9rem;
+            color: var(--source-color);
+            font-family: system-ui, -apple-system, sans-serif; /* Clean sans-serif for source */
+            font-style: normal;
+        }
+
+        /* The fade animation */
+        .fade {
             transition: opacity 0.8s ease-in-out;
             opacity: 0;
+        }
+
+        .fade-in {
+            opacity: 1;
         }
     </style>
 </head>
 <body>
 
 <div id="quote-container">
-    <p id="quote-text"></p>
+    <div id="quote-content" class="fade">
+        <p id="quote-text"></p>
+        <p id="quote-source">- <i>Sense and Sensibility</i></p>
+    </div>
 </div>
 
 <script>
@@ -52,20 +90,30 @@
     ];
 
     let currentIndex = 0;
-    const quoteElement = document.getElementById('quote-text');
+    const quoteContent = document.getElementById('quote-content');
+    const quoteText = document.getElementById('quote-text');
 
     function updateQuote() {
-        quoteElement.style.opacity = 0;
+        // Fade out the entire content (quote + source)
+        quoteContent.classList.remove('fade-in');
         
         setTimeout(() => {
-            quoteElement.innerText = quotes[currentIndex];
-            quoteElement.style.opacity = 1;
+            // Update the text
+            quoteText.innerText = quotes[currentIndex];
+            
+            // Fade it back in
+            quoteContent.classList.add('fade-in');
+            
+            // Advance index, loop if necessary
             currentIndex = (currentIndex + 1) % quotes.length;
-        }, 800);
+        }, 800); // Wait for fade-out before changing text
     }
 
+    // Initial load
     updateQuote();
-    setInterval(updateQuote, 120000); // 2 minutes
+
+    // Set interval for 2 minutes (120,000 ms)
+    setInterval(updateQuote, 120000);
 </script>
 
 </body>
